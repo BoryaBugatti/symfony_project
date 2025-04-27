@@ -1,0 +1,33 @@
+{# templates/main_page.html.twig #}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Запись на прием</title>
+    <link rel="stylesheet" href="{{ asset('styles/main_page_style.css') }}">
+</head>
+<body>
+    <div class="page-wrapper">
+        <header class="header">
+            <a href="/lk">Личный кабинет пользователя</a>
+            <h1 class="header-title">Запись на прием</h1>
+        </header>
+        <form action="/create-appointment" method="post" class="appointment-form">
+            <div class="form-group">
+                <label for="patient" class="form-label">Пациент:</label>
+                <input type="text" id="patient" name="patient" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label for="doctor" class="form-label">Врач:</label>
+                <input type="text" id="doctor" name="doctor" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label for="date" class="form-label">Дата:</label>
+                <input type="date" id="date" name="date" class="form-input" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Записаться</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+services: 
+  nginx-service:
+    image: nginx:stable-alpine
+    container_name: nginx-container
+    ports:
+      - "8090:80"
+    volumes:
+      - ./app:/var/www/project
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php81-service
+      - postgres-service
+    networks:
+      - nginx-php81-postgres
+
+  php81-service:
+    build:
+      context: .
+      dockerfile: ./php/Dockerfile
+    container_name: php81-container
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./app:/var/www/project
+    networks:
+      - nginx-php81-postgres
+
+  postgres-service:
+    image: postgres:latest
+    container_name: postgres-container
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: userpassword
+      POSTGRES_DB: test_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - local_pgdata:/var/lib/postgresql/data 
+    networks:
+      - nginx-php81-postgres
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin-container
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "8080:80"
+    depends_on:
+      - postgres-service
+    networks:
+      - nginx-php81-postgres
+
+networks:
+  nginx-php81-postgres:
+
+volumes:
+  local_pgdata:
