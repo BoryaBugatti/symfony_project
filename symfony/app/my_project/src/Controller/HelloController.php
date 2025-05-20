@@ -29,6 +29,8 @@ final class HelloController extends AbstractController
             $appointment->setAppointmentPatientName($patient);
             $appointment->setAppointmentDoctorName($doctor);
             $appointment->setAppointmentDate($appointment_date);
+            $entitymanager->persist($appointment);
+            $entitymanager->flush();
             return new Response("Запись успешно добавлена");
         }
     }

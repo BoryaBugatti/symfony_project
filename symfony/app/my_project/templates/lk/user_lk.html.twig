@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ asset('styles/user_lk_style.css') }}">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Добро пожаловать в личный кабинет</h1>
+        <h2>Вы вошли как {{user_name}}</h2>
+        <h2>Ваша почта: {{user_email}}</h2>
+        <h2>Ваша роль {{user_role}}</h2>
+        {% if user_role == 'Админ' %}
+            <h3>Администраторские функции:</h3>
+            <a href="/lk/all_appointments">Получить все данные о приемах</a><br>
+            <a href="/lk/all_users">Получить все данные о пользователях</a><br>
+        {% endif %}
+        <a href="/">Вернуться на главную</a>
+        <a href="/logout">Выйти из аккаунта</a>
+    </div>
+</body>
+</html>
